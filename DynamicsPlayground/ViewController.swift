@@ -43,15 +43,9 @@ class ViewController: UIViewController, UICollisionBehaviorDelegate {
         let itemBehaviour = UIDynamicItemBehavior(items: [square])
         itemBehaviour.elasticity = 0.6
         animator.addBehavior(itemBehaviour)
-        
-//        collision.action = {
-//            print("\(NSStringFromCGAffineTransform(self.square.transform)) \(NSStringFromCGPoint(self.square.center))")
-//        }
-
     }
-
+    
     func collisionBehavior(_ behavior: UICollisionBehavior, beganContactFor item: UIDynamicItem, withBoundaryIdentifier identifier: NSCopying?, at p: CGPoint) {
-        print("Boundary contact occurred - \(String(describing: identifier))")
         
         let collidingView = item as! UIView
         collidingView.backgroundColor = .yellow
@@ -59,19 +53,19 @@ class ViewController: UIViewController, UICollisionBehaviorDelegate {
             collidingView.backgroundColor = .gray
         }
         
-                if (!firstContact) {
-                    firstContact = true
-        
-                    let square = UIView(frame: CGRect(x: 30, y: 0, width: 100, height: 100))
-                    square.backgroundColor = UIColor.gray
-                    view.addSubview(square)
-        
-                    collision.addItem(square)
-                    gravity.addItem(square)
-        
-                    let attach = UIAttachmentBehavior(item: collidingView, attachedTo:square)
-                    animator.addBehavior(attach)
-                }
+        if (!firstContact) {
+            firstContact = true
+            
+            let square = UIView(frame: CGRect(x: 30, y: 0, width: 100, height: 100))
+            square.backgroundColor = UIColor.gray
+            view.addSubview(square)
+            
+            collision.addItem(square)
+            gravity.addItem(square)
+            
+            let attach = UIAttachmentBehavior(item: collidingView, attachedTo:square)
+            animator.addBehavior(attach)
+        }
     }
     
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -88,8 +82,6 @@ class ViewController: UIViewController, UICollisionBehaviorDelegate {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
-
 }
 
 
